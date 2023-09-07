@@ -2,15 +2,18 @@ from datetime import datetime
 import smtplib
 import random
 import json
+import os 
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 today = datetime.now()
 day = today.strftime("%m-%d")
 year = today.year
 
-my_email = 'emrakhibragimov5@gmail.com'
-password = 'rgbzaerhvevmdoou'
+my_email = ''
+password = ''
 
-with open('intermediate/birthday_manager/birthdays.json') as file:
+with open(os.path.join(current_directory, 'birthdays.json')) as file:
     emails = json.load(file)
     closest_people = []
     birth = None

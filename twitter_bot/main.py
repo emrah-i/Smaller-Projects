@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+import os
 from time import sleep
 
 driver = webdriver.Chrome()
@@ -21,6 +22,8 @@ download = ds.text
 us = driver.find_element(By.CSS_SELECTOR, 'div[title="Sending Time"] .result-data span')
 upload = us.text
 
+# If int(upload) >= promised:
+
 driver.get('https://twitter.com/')
 
 name = wait.until(EC.visibility_of_element_located((By.NAME, 'text')))
@@ -28,7 +31,7 @@ name.send_keys('Jamal7804097802')
 name.send_keys(Keys.ENTER)
 
 password = wait.until(EC.visibility_of_element_located((By.NAME, 'password')))
-password.send_keys('Acdc1234!')
+password.send_keys(os.getenv('PASSWORD'))
 password.send_keys(Keys.ENTER)
 
 text = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, '.public-DraftStyleDefault-block')))

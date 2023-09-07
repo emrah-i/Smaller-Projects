@@ -3,6 +3,9 @@ import spotipy
 from datetime import datetime
 from spotipy.oauth2 import SpotifyOAuth
 from bs4 import BeautifulSoup
+import os 
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 now = datetime.now()
 year = now.year
@@ -46,7 +49,7 @@ client_id = ''
 client_secret = ''
 
 scope = "user-library-read"
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(show_dialog=True, username='emrakh26', cache_path='intermediate+=/playlist_maker/info.txt', client_id=client_id, client_secret=client_secret, redirect_uri="http://example.com", scope="playlist-modify-private"))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(show_dialog=True, username='emrakh26', cache_path=os.path.join(current_directory, 'info.txt'), client_id=client_id, client_secret=client_secret, redirect_uri="http://example.com", scope="playlist-modify-private"))
 user = sp.current_user()
 #playlist = sp.user_playlist_create(name=f"{date} Playlist", user=user['id'], public=False)
 
