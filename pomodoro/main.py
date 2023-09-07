@@ -22,7 +22,7 @@ def beep():
 
 reg = (24, 60)
 short = (4, 60)
-long = (9, 60)
+long = (24, 60)
 minutes, seconds = reg
 score = 1
 stop = False

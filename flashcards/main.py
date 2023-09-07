@@ -3,6 +3,9 @@ import tkmacosx as tkm
 import pandas
 import random
 import json
+import os
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 bgc = '#91C2AF'
 
@@ -12,12 +15,12 @@ window.title('Flashcards')
 window.minsize(400, 400)
 
 side = 'front'
-words = pandas.read_csv('/Users/emrakh/Python-Projects/intermediate/flashcards/Turkish Translate .csv')
+words = pandas.read_csv(os.path.join(current_directory, 'Turkish Translate .csv'))
 word = random.choice(words['Turkish'])
 learned_count = 0
 
 try:
-    with open('/Users/emrakh/Python-Projects/intermediate/flashcards/learned.json') as file:
+    with open(os.path.join(current_directory, 'learned.json')) as file:
         try:
             data = json.load(file)
         except:
@@ -73,18 +76,18 @@ def learned():
     canvas.itemconfig(image_item, image=front_img)
 
     try:
-        with open('/Users/emrakh/Python-Projects/intermediate/flashcards/learned.json') as file:
+        with open(os.path.join(current_directory, 'learned.json')) as file:
             try:
                 data = json.load(file)
             except:
-                with open('/Users/emrakh/Python-Projects/intermediate/flashcards/learned.json', mode='w') as file:
+                with open(os.path.join(current_directory, 'learned.json'), mode='w') as file:
                     json.dump(learned_words, file)
             else:
                 data.append(adding)
-                with open('/Users/emrakh/Python-Projects/intermediate/flashcards/learned.json', mode='w') as file:
+                with open(os.path.join(current_directory, 'learned.json'), mode='w') as file:
                     json.dump(data, file)
     except FileNotFoundError:
-        with open('/Users/emrakh/Python-Projects/intermediate/flashcards/learned.json', mode='w') as file:
+        with open(os.path.join(current_directory, 'learned.json'), mode='w') as file:
             json.dump(learned_words, file)
 
 def canvas_click(event):
@@ -113,8 +116,8 @@ total_learned = Label(text=f"Learned in total: {total_count}", font=('Arial', 20
 total_learned.grid(column=5, row=1)
 
 canvas = Canvas(width=700, height=446, bg=bgc, highlightthickness=0)
-front_img = PhotoImage(file='/Users/emrakh/Python-Projects/intermediate/flashcards/front_img.png')
-back_img = PhotoImage(file='/Users/emrakh/Python-Projects/intermediate/flashcards/back_img.png')
+front_img = PhotoImage(file=os.path.join(current_directory, 'front_img.png'))
+back_img = PhotoImage(file=os.path.join(current_directory, 'back_img.png'))
 image_item = canvas.create_image(350, 223, image=front_img) 
 label_item = canvas.create_text(350, 180, text="Turkish", font=('Arial', 30, 'italic'), fill='black')
 text_item = canvas.create_text(350, 250, text=f"{word}", font=('Arial', 35, 'bold'), fill='black')
